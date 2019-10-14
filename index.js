@@ -14,3 +14,9 @@ function setLocalStorage() {
 	var myJSON = JSON.stringify($('form').serializeArray());
 	localStorage.setItem("myJSON", myJSON);
 }
+function registerAccount() {
+	//Reset Fields
+	document.getElementById("form").reset();
+	localStorage.setItem("myJSON", null);
+	swal("Successful!!", "Your account has now been created!", "success");
+}

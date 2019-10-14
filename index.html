@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <!--
-Créditos para:
-https://www.tutorialrepublic.com/snippets/preview.php?topic=bootstrap&file=simple-registration-form
+Original Copyright Tutorial Republic and contributors.
+<https://www.tutorialrepublic.com/snippets/preview.php?topic=bootstrap&file=simple-registration-form>
 
-JSON JS:
-https://www.w3schools.com/js/js_json_intro.asp
+How to use JSON in JavaScript:
+<https://www.w3schools.com/js/js_json_intro.asp>
 -->
 <html lang="en">
 <head>
@@ -12,12 +12,13 @@ https://www.w3schools.com/js/js_json_intro.asp
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-<title>Bootstrap Simple Registration Form</title>
+<title>Registration Form</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <script src="index.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style type="text/css">
 	body{
 		color: #fff;
@@ -110,7 +111,7 @@ https://www.w3schools.com/js/js_json_intro.asp
 </head>
 <body>
 <div class="signup-form">
-    <form id="form" action="/examples/actions/confirmation.php" method="post">
+    <form id="form">
 		<h2>Register</h2>
 		<p class="hint-text">Create your account. It's free and only takes a minute.</p>
         <div class="form-group">
@@ -129,10 +130,10 @@ https://www.w3schools.com/js/js_json_intro.asp
             <input type="password" onchange="setLocalStorage()" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required="required">
         </div>
 		<div class="form-group">
-            <button type="submit" class="btn btn-success btn-lg btn-block">Register Now</button>
+            <button onclick="registerAccount()" class="btn btn-success btn-lg btn-block">Register Now</button>
         </div>
     </form>
-	<div class="text-center">Already have an account? <a href="#">Sign in</a></div>
+	<!--<div class="text-center">Already have an account? <a href="#">Sign in</a></div>-->
 </div>
 </body>
 </html>                            
