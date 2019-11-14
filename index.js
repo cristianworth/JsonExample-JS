@@ -1,43 +1,43 @@
-window.onload = function() {
-	//GetJson
-	var json = localStorage.getItem("myJSON");
-	obj = JSON.parse(json);
-	if (obj != null) {
-		//Set Fields Values
-		obj.forEach(function(campo){
-			document.getElementById(campo.name).value = campo.value;
-		});
-	}
-	
-	debugger;
-	$.ajax({
-		url: "https://ageless-answer-251400.firebaseio.com/clientes/100.json",
-		//url: "https://fir-sd-35b18.firebaseio.com/user.json",
-		async: true
-	}).done(function (data) {
-		var dados = JSON.stringify(data);
-		console.log(dados)
-	});
-	
-	$.ajax({
-                    url: 'https://ageless-answer-251400.firebaseio.com/clientes/100.json',
-                    type: 'GET',
-                    success: function(retorno){
-                        $.each(retorno, function(dados) {
-							console.log(dados.first);
-							console.log(dados.last);
-                        })
-                    }
-                })
+var config = {
+	apiKey: "AIzaSyByOiFJCC20y9RZVXVFcMQq0KSxsqN1cPU",
+	authDomain: "sd-2019-cristian.firebaseapp.com",
+	databaseURL: "https://sd-2019-cristian.firebaseio.com",
+	projectId: "sd-2019-cristian",
+	storageBucket: "sd-2019-cristian.appspot.com",
+	messagingSenderId: "375700408512"
 };
-function setLocalStorage() {
-	//SetJson
-	var myJSON = JSON.stringify($('form').serializeArray());
-	localStorage.setItem("myJSON", myJSON);
-}
-function registerAccount() {
-	//Reset Fields
-	document.getElementById("form").reset();
-	localStorage.setItem("myJSON", null);
-	swal("Successful!!", "Your account has now been created!", "success");
+firebase.initializeApp(config);
+
+window.onload = function() {
+	firebase.database().ref('/clients/').once('value').then(function (snapshot) {
+		var data = [];
+		var line = "";
+		snapshot.forEach(function (e) {
+			line = 
+			'<tr>' +
+			'<td>' + e.val().id + '</td>' +
+			'<td>' + e.val().name + '</td>' +
+			'<td>' + e.val().address + '</td>' +
+			'<td>' + e.val().city + '</td>' +
+			'<td>' + e.val().pin + '</td>' +
+			'<td>' + e.val().country + '</td>'+
+			'</tr>';
+
+			data.push(line);
+		});
+		document.querySelector('#data>tbody').innerHTML = data.join();
+	})
+};
+
+function send(){
+	var obj = {
+		id: $('#id').val(),
+		name: $('#name').val(),
+		address: $('#address').val(),
+		city: $('#city').val(),
+		pin: $('#pin').val(),
+		country: $('#country').val(),
+	};
+	firebase.database().ref("clients/").push(obj);
+	//swal("Successful!!", "Successfully created client!", "success");
 }

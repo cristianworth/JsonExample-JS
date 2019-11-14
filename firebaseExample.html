@@ -63,7 +63,9 @@
 
         </div>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>   
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  		<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+  		<script src="index.js"></script>
         <script>
             
             function ler(){
@@ -75,9 +77,11 @@
 
                         $.each(data, function(index, element) {
                             html += '<p>Id: '+element.id+'</p>';
-                            html += '<p>Nome: '+element.Nome+'</p>';
-                            html += '<p>Sobrenome: '+element.Sobrenome+'</p>';
-                            html += '<p>Telefone: '+element.Telefone+'</p>';
+                            html += '<p>Name: '+element.name+'</p>';
+                            html += '<p>Address: '+element.address+'</p>';
+                            html += '<p>City: '+element.city+'</p>';
+                            html += '<p>Pin: '+element.pin+'</p>';
+                            html += '<p>Country: '+element.country+'</p>';
                             html += '<br>'
                         })
                     
@@ -89,10 +93,12 @@
             function enviar(){
 
                 let objeto = {
-                    Email: $('#email').val(),
-                    Nome: $('#nome').val(),
-                    Sobrenome: $('#sobrenome').val(),
-                    Telefone: $('#telefone').val()
+                    id: $('#id').val(),
+                    name: $('#name').val(),
+                    address: $('#address').val(),
+                    city: $('#city').val(),
+                    pin: $('#pin').val(),
+                    country: $('#country').val(),
                 }
 
                 var root = 'https://jsonplaceholder.typicode.com';
