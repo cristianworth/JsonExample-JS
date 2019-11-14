@@ -1,0 +1,121 @@
+<!--
+{ 
+   "clients":[ 
+      { 
+         "id":"1",
+         "name":"Thomas Hardy",
+         "address":"89 Chiaroscuro Rd.",
+         "city":"Portland",
+         "pin":"97219",
+         "country":"USA"
+      },
+      { 
+         "id":"2",
+         "name":"Maria Anders",
+         "address":"Obere Str. 57",
+         "city":"Berlin",
+         "pin":"12209",
+         "country":"Germany"
+      },
+      { 
+         "id":"3",
+         "name":"Fran Wilson",
+         "address":"C/ Araquil, 67",
+         "city":"Madrid",
+         "pin":"28023",
+         "country":"Spain"
+      },
+      { 
+         "id":"4",
+         "name":"Dominique Perrier",
+         "address":"25, rue Lauriston",
+         "city":"Paris",
+         "pin":"75016",
+         "country":"France"
+      }
+   ]
+}
+-->
+
+<html>
+
+    <head>
+
+    </head>
+
+
+    <body> 
+        
+        <button onclick="ler()">ler</button>
+        <button onClick="showEscrever()">escrever</button>
+
+        <div id="ler"></div>
+        <div id="escrever" style="display: none">
+            <br><br>
+			<input type="number" id="id" placeholder="Id" /><br><br>
+            <input type="text" id="name" placeholder="Name" /><br><br>
+            <input type="text" id="address" placeholder="Address" /><br><br>
+            <input type="text" id="city" placeholder="City" /><br><br>
+			<input type="text" id="pin" placeholder="Pin code" /><br><br>
+            <input type="text" id="country" placeholder="Country"/><br><br>
+
+            <button onclick="enviar()">Enviar</button>
+
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>   
+        <script>
+            
+            function ler(){
+                $.ajax({
+                    url: 'https://sd-2019-cristian.firebaseio.com/clients.json',
+                    type: 'GET',
+                    success: function(data){
+                        let html = '';
+
+                        $.each(data, function(index, element) {
+                            html += '<p>Id: '+element.id+'</p>';
+                            html += '<p>Nome: '+element.Nome+'</p>';
+                            html += '<p>Sobrenome: '+element.Sobrenome+'</p>';
+                            html += '<p>Telefone: '+element.Telefone+'</p>';
+                            html += '<br>'
+                        })
+                    
+                        $('#ler').html(html);
+                    }
+                })
+            }
+
+            function enviar(){
+
+                let objeto = {
+                    Email: $('#email').val(),
+                    Nome: $('#nome').val(),
+                    Sobrenome: $('#sobrenome').val(),
+                    Telefone: $('#telefone').val()
+                }
+
+                var root = 'https://jsonplaceholder.typicode.com';
+
+                $.ajax({
+                    url: root + '/posts',
+                    type: 'POST',
+                    data: objeto,
+                    success: function(data){
+                        console.log(data);
+                        alert('JSON enviado com sucesso!');
+                        $('#escrever').hide();
+                    }
+                })
+
+            }
+
+            function showEscrever(){
+                $('#escrever').show();
+            }
+
+        </script>
+
+    </body>
+
+</html>

@@ -8,6 +8,27 @@ window.onload = function() {
 			document.getElementById(campo.name).value = campo.value;
 		});
 	}
+	
+	debugger;
+	$.ajax({
+		url: "https://ageless-answer-251400.firebaseio.com/clientes/100.json",
+		//url: "https://fir-sd-35b18.firebaseio.com/user.json",
+		async: true
+	}).done(function (data) {
+		var dados = JSON.stringify(data);
+		console.log(dados)
+	});
+	
+	$.ajax({
+                    url: 'https://ageless-answer-251400.firebaseio.com/clientes/100.json',
+                    type: 'GET',
+                    success: function(retorno){
+                        $.each(retorno, function(dados) {
+							console.log(dados.first);
+							console.log(dados.last);
+                        })
+                    }
+                })
 };
 function setLocalStorage() {
 	//SetJson
