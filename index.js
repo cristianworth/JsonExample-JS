@@ -1,6 +1,6 @@
-var defaultDatabase;
-var otherDatabase;
-function initializeDefaultDatabase() {
+var clientDatabase;
+var productDatabase;
+function initializeClientDatabase() {
   var config = {
     apiKey: "AIzaSyByOiFJCC20y9RZVXVFcMQq0KSxsqN1cPU",
     authDomain: "sd-2019-cristian.firebaseapp.com",
@@ -10,36 +10,36 @@ function initializeDefaultDatabase() {
     messagingSenderId: "375700408512"
   };
   firebase.initializeApp(config);
-  defaultDatabase = firebase.database();
+  clientDatabase = firebase.database();
 }
 
-function initializeOtherDatabase() {
+function initializeProductDatabase() {
   var config = {
     apiKey: "AIzaSyCPzwtfTmk0wJVNOnLdkl54mLRoSWOTAyI",
-    authDomain: "product-sd-2019-cristian.firebaseapp.com",
-    databaseURL: "https://product-sd-2019-cristian.firebaseio.com",
-    projectId: "product-sd-2019-cristian",
-    storageBucket: "product-sd-2019-cristian.appspot.com",
+    authDomain: "product-sd-cristian-2019.firebaseapp.com",
+    databaseURL: "https://product-sd-cristian-2019.firebaseio.com",
+    projectId: "product-sd-cristian-2019",
+    storageBucket: "product-sd-cristian-2019.appspot.com",
     messagingSenderId: "160413180818"
   };
-  var connectionDatabase = firebase.initializeApp(config, "otherDatabase");
-  otherDatabase = connectionDatabase.database();
+  var connectionDatabase = firebase.initializeApp(config, "productDatabase");
+  productDatabase = connectionDatabase.database();
 }
 
 window.onload = function() {
-  initializeDefaultDatabase();
-  getDataDefaultDatabase();
+  initializeClientDatabase();
+  getDataClientDatabase();
 
-  initializeOtherDatabase();
-  getDataOtherDatabase();
+  initializeProductDatabase();
+  getDataProductDatabase();
 };
 
 function addClient() {
-  setDataDefaultDatabase();
+  setDataClientDatabase();
   //swal("Successful!!", "Successfully created client!", "success");
 }
 
 function addProduct() {
-  setDataOtherDatabase();
+  setDataProductDatabase();
   //swal("Successful!!", "Successfully created product!", "success");
 }

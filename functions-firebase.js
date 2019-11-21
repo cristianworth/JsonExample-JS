@@ -1,6 +1,6 @@
 
-function getDataDefaultDatabase(){
-	defaultDatabase.ref('/clients/').once('value').then(function (snapshot) {
+function getDataClientDatabase(){
+	clientDatabase.ref('/clients/').once('value').then(function (snapshot) {
 		var data = [];
 		var line = "";
 		snapshot.forEach(function (e) {
@@ -15,13 +15,13 @@ function getDataDefaultDatabase(){
 			'</tr>';
 
 			data.push(line);
-		});
-		document.querySelector('#dataDefaultDatabase>tbody').innerHTML = data.join();
+        });
+        $("#dataClientDatabase tbody").append(data);
 	})
 }
 
-function getDataOtherDatabase(){
-	otherDatabase.ref('/products/').once('value').then(function (snapshot) {
+function getDataProductDatabase(){
+	productDatabase.ref('/products/').once('value').then(function (snapshot) {
 		var data = [];
 		var line = "";
 		snapshot.forEach(function (e) {
@@ -33,11 +33,11 @@ function getDataOtherDatabase(){
 
 			data.push(line);
 		});
-		document.querySelector('#dataOtherDatabase>tbody').innerHTML = data.join();
+        $("#dataProductDatabase tbody").append(data);
 	})
 }
 
-function setDataDefaultDatabase(){
+function setDataClientDatabase(){
 	var obj = {
 		id: $('#id').val(),
 		name: $('#name').val(),
@@ -46,13 +46,13 @@ function setDataDefaultDatabase(){
 		pin: $('#pin').val(),
 		country: $('#country').val(),
 	};
-	defaultDatabase.ref("clients/").push(obj);
+	clientDatabase.ref("clients/").push(obj);
 }
 
-function setDataOtherDatabase(){
+function setDataProductDatabase(){
 	var obj = {
 		nameProduct: $('#nameProduct').val(),
 		price: $('#price').val()
 	};
-	otherDatabase.ref("products/").push(obj);
+	productDatabase.ref("products/").push(obj);
 }
