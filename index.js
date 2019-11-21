@@ -1,15 +1,42 @@
-var config = {
-	apiKey: "AIzaSyByOiFJCC20y9RZVXVFcMQq0KSxsqN1cPU",
-	authDomain: "sd-2019-cristian.firebaseapp.com",
-	databaseURL: "https://sd-2019-cristian.firebaseio.com",
-	projectId: "sd-2019-cristian",
-	storageBucket: "sd-2019-cristian.appspot.com",
-	messagingSenderId: "375700408512"
-};
-firebase.initializeApp(config);
+var defaultDatabase;
+var otherDatabase;
+function initializeDefaultDatabase (){
+	var config = {
+		apiKey: "AIzaSyByOiFJCC20y9RZVXVFcMQq0KSxsqN1cPU",
+		authDomain: "sd-2019-cristian.firebaseapp.com",
+		databaseURL: "https://sd-2019-cristian.firebaseio.com",
+		projectId: "sd-2019-cristian",
+		storageBucket: "sd-2019-cristian.appspot.com",
+		messagingSenderId: "375700408512"
+	};
+	firebase.initializeApp(config);
+	defaultDatabase = firebase.database();
+}
+
+function initializeOtherDatabase (){
+	var config2 = {
+		apiKey: "AIzaSyByOiFJCC20y9RZVXVFcMQq0KSxsqN1cPU",
+		authDomain: "sd-2019-cristian.firebaseapp.com",
+		databaseURL: "https://sd-2019-cristian.firebaseio.com",
+		projectId: "sd-2019-cristian",
+		storageBucket: "sd-2019-cristian.appspot.com",
+		messagingSenderId: "375700408512"
+	};
+	var connectionDatabase = firebase.initializeApp(config2, "otherDatabase");
+	otherDatabase = connectionDatabase.database();
+}
+
 
 window.onload = function() {
-	firebase.database().ref('/clients/').once('value').then(function (snapshot) {
+	initializeDefaultDatabase();
+	getDataDefaultDatabase();
+
+	initializeOtherDatabase();
+	getDataOtherDatabase();
+};
+
+function getDataDefaultDatabase(){
+	defaultDatabase.ref('/clients/').once('value').then(function (snapshot) {
 		var data = [];
 		var line = "";
 		snapshot.forEach(function (e) {
@@ -25,9 +52,30 @@ window.onload = function() {
 
 			data.push(line);
 		});
-		document.querySelector('#data>tbody').innerHTML = data.join();
+		document.querySelector('#dataDefaultDatabase>tbody').innerHTML = data.join();
 	})
-};
+}
+
+function getDataOtherDatabase(){
+	otherDatabase.ref('/clients/').once('value').then(function (snapshot) {
+		var data = [];
+		var line = "";
+		snapshot.forEach(function (e) {
+			line = 
+			'<tr>' +
+			'<td>' + e.val().id + '</td>' +
+			'<td>' + e.val().name + '</td>' +
+			'<td>' + e.val().address + '</td>' +
+			'<td>' + e.val().city + '</td>' +
+			'<td>' + e.val().pin + '</td>' +
+			'<td>' + e.val().country + '</td>'+
+			'</tr>';
+
+			data.push(line);
+		});
+		document.querySelector('#dataOtherDatabase>tbody').innerHTML = data.join();
+	})
+}
 
 function send(){
 	var obj = {
@@ -38,6 +86,6 @@ function send(){
 		pin: $('#pin').val(),
 		country: $('#country').val(),
 	};
-	firebase.database().ref("clients/").push(obj);
+	defaultDatabase.ref("clients/").push(obj);
 	//swal("Successful!!", "Successfully created client!", "success");
 }
